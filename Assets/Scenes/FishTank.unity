@@ -287,6 +287,78 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179751427}
   m_CullTransparentMesh: 1
+--- !u!1 &302743265
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 302743267}
+  - component: {fileID: 302743266}
+  m_Layer: 0
+  m_Name: Global Light 2D
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &302743266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302743265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 073797afb82c5a1438f328866b10b3f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LightType: 4
+  m_BlendStyleIndex: 0
+  m_FalloffIntensity: 0.5
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_LightVolumeOpacity: 0
+  m_ApplyToSortingLayers: 00000000
+  m_LightCookieSprite: {fileID: 0}
+  m_UseNormalMap: 0
+  m_LightOrder: 0
+  m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
+  m_PointLightInnerAngle: 360
+  m_PointLightOuterAngle: 360
+  m_PointLightInnerRadius: 0
+  m_PointLightOuterRadius: 1
+  m_PointLightDistance: 3
+  m_PointLightQuality: 1
+  m_ShapeLightParametricSides: 5
+  m_ShapeLightParametricAngleOffset: 0
+  m_ShapeLightParametricRadius: 1
+  m_ShapeLightFalloffSize: 0.5
+  m_ShapeLightFalloffOffset: {x: 0, y: 0}
+  m_ShapePath:
+  - {x: -0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: 0.5, y: 0.5, z: 0}
+  - {x: -0.5, y: 0.5, z: 0}
+--- !u!4 &302743267
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302743265}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 2.4452074, y: -0.25809252, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &510798676
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +471,7 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
+  - component: {fileID: 519420030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -414,6 +487,38 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
+--- !u!114 &519420030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -563,11 +668,11 @@ GameObject:
   m_Component:
   - component: {fileID: 627474484}
   - component: {fileID: 627474485}
-  - component: {fileID: 627474486}
   - component: {fileID: 627474487}
   - component: {fileID: 627474488}
+  - component: {fileID: 627474486}
   m_Layer: 0
-  m_Name: fish spawn
+  m_Name: fish manager
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -601,7 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishfood: {fileID: 1441088694354393076, guid: c0b84498cd198a2438e3af630cfe73f0, type: 3}
   mouse: {fileID: 111420093}
-  spawnedfood: {fileID: 0}
+  spawnedfood: {fileID: 1441088694354393076, guid: c0b84498cd198a2438e3af630cfe73f0, type: 3}
   foodbutton: {fileID: 1388284581}
   canvas: {fileID: 510798679}
   foodlist: []
@@ -618,7 +723,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fish: {fileID: 6293132485564379522, guid: aa888e92940c6744aaabaa0c6450ca64, type: 3}
-  allairbubbles: []
+  fishes: []
+  malefish: []
+  femalefish: []
+  allAirBubbles: []
   randomname:
   - bruh
   - henk
@@ -629,8 +737,8 @@ MonoBehaviour:
   redFish: {fileID: 21300000, guid: f9d10c042941ef04bab5ab51d0ba1ddb, type: 3}
   yellowFish: {fileID: 21300000, guid: d10c4a999175a0f43bc0f08cba7cc90e, type: 3}
   growstat: 
-  airbubble: {fileID: 8432893262758410161, guid: cbb6d4f8070f17648afa734eba890345, type: 3}
-  FishEgg: {fileID: 2795091699284650284, guid: 76ef0f5e01a96df4ba20bf2fa5d1c5fd, type: 3}
+  airBubble: {fileID: 2795091699284650284, guid: 76ef0f5e01a96df4ba20bf2fa5d1c5fd, type: 3}
+  FishEgg: {fileID: 6293132485564379522, guid: aa888e92940c6744aaabaa0c6450ca64, type: 3}
   id: 0
 --- !u!114 &627474487
 MonoBehaviour:

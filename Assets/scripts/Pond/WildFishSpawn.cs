@@ -1,40 +1,33 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Diagnostics.Tracing;
-using System.Linq;
-using TMPro;
-using UnityEditor;
-using UnityEditorInternal.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WildFishSpawn : MonoBehaviour
 {
-    public bool catched, sethookpos, hooked, menuOpen;
-    float cooldown = 4f;
-    Vector3 originalhookpos;
-    public Transform hook;
-    public GameObject fishgameobject;
-    public GameObject rod;
-    public OldFishClass catchedFish;
+    private bool catched, sethookpos, hooked; 
+    public bool menuOpen;
+    private float cooldown = 4f;
+    private Vector3 originalHookPos;
+    [SerializeField]private Transform hook;
+    [SerializeField]private GameObject fishGameObject;
+    [SerializeField]private GameObject rod;
+    public Fish catchedFish;
     public Image fishStat;
-    OldWildFishClass hookedFish = null;
-    public static List<OldWildFishClass> wildfishes = new List<OldWildFishClass>();
+    private WildFish hookedFish = null;
+    public static List<WildFish> WildFishes = new List<WildFish>();
     public Text fishtype, sex;
     public GameObject canvas;
     // Start is called before the first frame update
     void Start()
     {
         fishStat.gameObject.SetActive(false);
-        //catchedFish = 
     }
 
     // Update is called once per frame
     void Update()
     {
         //Debug.Log(hookedFish);
-        FishBehaviour(wildfishes);
+        //FishBehaviour(wildfishes);
         if (hook.transform.position.y < -10f && hook.transform.position.y > -20)
         {
             bool isMale;
@@ -42,10 +35,13 @@ public class WildFishSpawn : MonoBehaviour
                 isMale = true;
             else
                 isMale = false;
-            if (wildfishes.Count < 10)
-                new OldWildFishClass(new Vector3(Random.Range(-12, 12), Random.Range(-15f, -30f)), Resources.Load<GameObject>("prefabs/wildfish"), type.red, isMale, 1, 0.11f);
+            if (WildFishes.Count < 10)
+            { 
+                WildFishes.Add(new WildFish(new Vector3(Random.Range(-5, 5),Random.Range(-5, -10)), fishGameObject, "", 2f, 2f, 2.5f, Type.red));
+                Debug.Log(WildFishes.Count);
+            }
         }
-        foreach (OldWildFishClass wf in wildfishes)
+        foreach (WildFish wf in WildFishes)
         {
             if (wf.instantiatedObject.GetComponent<SpriteRenderer>().color.a < 1f)
                 wf.instantiatedObject.GetComponent<SpriteRenderer>().color += new Color(1f, 1f, 1f, 0.1f) * 8 * Time.deltaTime;
@@ -54,12 +50,12 @@ public class WildFishSpawn : MonoBehaviour
         {
             menuOpen = true;
             fishStat.gameObject.SetActive(true);
-            fishStat.transform.GetChild(2).GetComponent<Text>().text += " " + hookedFish.fishtype.ToString();
+            fishStat.transform.GetChild(2).GetComponent<Text>().text += " " + hookedFish.fishType.ToString(); //fishtype doesnt exist anymore
             fishStat.transform.GetChild(3).GetComponent<Text>().text += " " + hookedFish.IsMale(hookedFish.isMale);
             fishStat.transform.GetChild(6).GetComponent<Image>().sprite = hookedFish.instantiatedObject.GetComponent<SpriteRenderer>().sprite;
             if(hookedFish != null)
             {
-                Debug.Log(hookedFish.fishtype);
+                Debug.Log(hookedFish.fishType); //fish type doesnt exist anymore
                 Debug.Log(hookedFish.IsMale(hookedFish.isMale));
             }
             catched = false;
@@ -73,11 +69,11 @@ public class WildFishSpawn : MonoBehaviour
         if (!menuOpen)
             fishStat.gameObject.SetActive(false);
     }
-    public void FishBehaviour(List<OldWildFishClass> fishlist)
+    public void FishBehaviour(List<WildFish> fishlist)
     {
-        OldWildFishClass closestFish = null;
+        WildFish closestFish = null;
         float DistanceClosestFish = 9999;
-        foreach (OldWildFishClass fish in fishlist)
+        foreach (WildFish fish in fishlist)
         {
             //closest fish
             if ((hook.transform.position - fish.instantiatedObject.transform.position).magnitude < DistanceClosestFish)
@@ -92,13 +88,13 @@ public class WildFishSpawn : MonoBehaviour
             if (Time.time > cooldown)
             {
                 cooldown = Time.time + 0.25f;
-                originalhookpos = hook.transform.position;
+                originalHookPos = hook.transform.position;
                 fish.gone = false;
             }
             if (!fish.bite)
             {
                 if((fish.instantiatedObject.transform.position-hook.transform.position).magnitude < 1)
-                    Debug.Log(fish.isinterested);
+                    Debug.Log(fish.isInterested);
                 //makes the fish look at where its going
                 if (fish.pos.x > fish.instantiatedObject.transform.position.x)
                     fish.instantiatedObject.GetComponent<SpriteRenderer>().flipX = false;
@@ -108,17 +104,17 @@ public class WildFishSpawn : MonoBehaviour
                 fish.instantiatedObject.transform.position += ((fish.pos - fish.instantiatedObject.transform.position).normalized * fish.speed * Time.deltaTime);
                 if ((fish.pos - fish.instantiatedObject.transform.position).magnitude < 1f)
                 {
-                    fish.speed = fish.originalspeed;
-                    fish.pos = new Vector3(Random.Range(-12, 12), Random.Range(fish.originalpos.y - 1, fish.originalpos.y + 1));
+                    fish.speed = fish.originalSpeed;
+                    fish.pos = new Vector3(Random.Range(-12, 12), Random.Range(fish.originalPos.y - 1, fish.originalPos.y + 1));
                 }
                 //swim away if the line goes to fast
                 if ((fish.instantiatedObject.transform.position - hook.transform.position).magnitude < 4)
                 {
-                    if ((originalhookpos - hook.transform.position).magnitude > 1.33f && !fish.gone)
+                    if ((originalHookPos - hook.transform.position).magnitude > 1.33f && !fish.gone)
                     {
                         fish.gone = true;
                         fish.pos = new Vector3(-fish.pos.x, fish.pos.y);
-                        fish.speed = fish.originalspeed * 4.5f;
+                        fish.speed = fish.originalSpeed * 4.5f;
                     }
                 }
                 //look at the bait if close
@@ -127,8 +123,8 @@ public class WildFishSpawn : MonoBehaviour
                 if (fishspriterenderer.flipY == true)
                     fishspriterenderer.flipY = false;
                 //move to hook
-                if ((closestFish.instantiatedObject.transform.position - hook.transform.position).magnitude > 1.5f && (originalhookpos - hook.transform.position).magnitude < 0.66f) //LAAT DE viS SNELLER GEVIST WORDEN ANDERS IS HET HEEL SAAI,
-                    closestFish.isinterested = true;                                                                                                                         //ALS DE VIS BOVEN WATER KOMT KRIJG EEN SCHERM MET DE STATS VAN           
+                if ((closestFish.instantiatedObject.transform.position - hook.transform.position).magnitude > 1.5f && (originalHookPos - hook.transform.position).magnitude < 0.66f) //LAAT DE viS SNELLER GEVIST WORDEN ANDERS IS HET HEEL SAAI,
+                    closestFish.isInterested = true;                                                                                                                         //ALS DE VIS BOVEN WATER KOMT KRIJG EEN SCHERM MET DE STATS VAN           
             }
             FishEscape(hookedFish);
         }
@@ -136,10 +132,10 @@ public class WildFishSpawn : MonoBehaviour
         if (closestFish != null && (closestFish.instantiatedObject.transform.position - hook.transform.position).magnitude < 1.5f && !closestFish.gone && !hooked)
         {
             SpriteRenderer spriterenderer = closestFish.instantiatedObject.GetComponent<SpriteRenderer>();
-            if (closestFish.isinterested)
+            if (closestFish.isInterested)
             {
                 closestFish.interest += Random.Range(1, 4);
-                closestFish.isinterested = false;
+                closestFish.isInterested = false;
             }
             Vector2 direction = hook.transform.position - closestFish.instantiatedObject.transform.position;
             if (closestFish.instantiatedObject.transform.position.x > hook.transform.position.x)
@@ -174,11 +170,11 @@ public class WildFishSpawn : MonoBehaviour
             }
         }
     }
-    void FishEscape(OldWildFishClass a)
+    void FishEscape(WildFish onHook)
     {
-        if (a != null)
-            Debug.Log(a.bite);
-        if (hookedFish != null && (originalhookpos - hook.transform.position).magnitude > 1.33f)
+        if (onHook != null)
+            Debug.Log(onHook.bite);
+        if (hookedFish != null && (originalHookPos - hook.transform.position).magnitude > 1.33f)
         {
             hookedFish.instantiatedObject.transform.SetParent(null, true);
             hookedFish.bite = false;
@@ -197,7 +193,7 @@ public class OldWildFishClass
     public Vector3 pos, hookedpos;
     public Vector3 originalpos;
     public GameObject instantiatedObject;
-    public type fishtype;
+    public Type fishtype;
     public bool isMale;
     public float speed, originalspeed;
     public bool alive, isinterested = true;
@@ -211,36 +207,18 @@ public class OldWildFishClass
         else
             return "Female";
     }
-    public OldWildFishClass(Vector3 _pos, GameObject prefab, type _fishtype, bool _isMale, float _speed, float _size)
+    public OldWildFishClass(Vector3 _pos, GameObject prefab, Type _fishtype, bool _isMale, float _speed, float _size)
     {
-        pos = _pos;
-        fishtype = _fishtype;
-        isMale = _isMale;
-        speed = _speed;
-        size = _size;
-
         switch (fishtype)
         {
-            case type.red:
+            case Type.red:
                 speed = 1;
                 pos = new Vector3(Random.Range(-12, 12), Random.Range(-15f, -30f));
                 break;
-            case type.yellow:
+            case Type.yellow:
                 speed = 2;
                 break;
         }
-        instantiatedObject = Object.Instantiate(prefab, pos, Quaternion.identity);
-        originalspeed = speed;
-        originalpos = pos;
-        WildFishSpawn.wildfishes.Add(this);
-        instantiatedObject.transform.position = this.pos;
-        instantiatedObject.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0.1f);
     }
-}
-public enum state
-{
-    swimaway,
-    followline,
-    snapped
 }
 

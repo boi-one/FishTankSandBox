@@ -1027,13 +1027,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c873d010a1895bd4a950aad0a5d489e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  catched: 0
-  sethookpos: 0
-  hooked: 0
   menuOpen: 0
   hook: {fileID: 1163565369}
-  fishgameobject: {fileID: 4855727304865691666, guid: 80c80d1a8497b9a41a7166e8ff580779, type: 3}
+  fishGameObject: {fileID: 4855727304865691666, guid: 80c80d1a8497b9a41a7166e8ff580779, type: 3}
   rod: {fileID: 1625075402}
+  catchedFish: {fileID: 0}
   fishStat: {fileID: 2107386371}
   fishtype: {fileID: 210591613}
   sex: {fileID: 1826660584}

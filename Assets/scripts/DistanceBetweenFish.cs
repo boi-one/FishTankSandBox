@@ -18,13 +18,13 @@ public class DistanceBetweenFish : MonoBehaviour
     {
         //ForEachLoop(fishspawn.GetComponent<spawnfish>().allfish);
     }
-    public void ForEachLoop(List<OldFishClass> fishlist)
+    public void ForEachLoop(List<Fish> fishlist)
     {
-        if ((fishspawn.GetComponent<spawnfish>().fishes.Count + fishspawn.GetComponent<spawnfish>().bigfishes.Count) > 1)
+        /*if ((fishspawn.GetComponent<SpawnFish>().fishes.Count + fishspawn.GetComponent<SpawnFish>().bigFishes.Count) > 1)
         {
-            foreach (OldFishClass f in fishlist.ToList())
+            foreach (Fish f in fishlist.ToList())
             {
-                fishlistgameobjects.Add(f.gameobject);
+                fishlistgameobjects.Add(f.instantiatedObject);
             }
             foreach(GameObject fishGameObject in fishlistgameobjects.ToList())
             {
@@ -36,6 +36,6 @@ public class DistanceBetweenFish : MonoBehaviour
                     closestFish = fishGameObject;
                 }
             }
-        }
+        }*/
     }
 }

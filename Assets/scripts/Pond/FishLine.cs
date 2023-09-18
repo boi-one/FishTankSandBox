@@ -67,7 +67,7 @@ public class FishLine : MonoBehaviour
     {
         if (!menu.GetComponent<WildFishSpawn>().menuOpen)
         {
-            List<OldWildFishClass> wfishes = WildFishSpawn.wildfishes;
+            List<WildFish> wildfishes = WildFishSpawn.WildFishes;
             if (Input.GetAxis("Mouse ScrollWheel") < 0 && Distance < 100 && !sinking) //hook going down
             {
                 hook.transform.position += new Vector3(0, -80) * Time.deltaTime;
@@ -78,9 +78,9 @@ public class FishLine : MonoBehaviour
                 hook.transform.position += new Vector3(0, 80) * Time.deltaTime;
                 Distance = transform.position.y - hook.transform.position.y;
             }
-            if (wfishes.Count > 0)
+            if (wildfishes.Count > 3)
             {
-                foreach (OldWildFishClass f in wfishes)
+                foreach (WildFish f in wildfishes)
                 {
                     if (Input.GetKeyDown(KeyCode.Mouse2) && !up && !f.bite)// fast up
                         up = true;

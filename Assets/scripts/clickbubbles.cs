@@ -18,7 +18,7 @@ public class clickbubbles : MonoBehaviour
     {
         float closestbubbledist = 999;
         GameObject closestbubble = null;
-        foreach (GameObject b in GetComponent<spawnfish>().allairbubbles.ToList())
+        foreach (GameObject b in GetComponent<FishSpawn>().allAirBubbles.ToList())
         {
             if((b.transform.position - mouse.transform.position).magnitude < closestbubbledist)
             {
@@ -27,12 +27,12 @@ public class clickbubbles : MonoBehaviour
             }
             if (closestbubbledist < 0.5f && Input.GetMouseButtonDown(0))
             {
-                GetComponent<spawnfish>().allairbubbles.Remove(closestbubble);
+                GetComponent<FishSpawn>().allAirBubbles.Remove(closestbubble);
                 Destroy(closestbubble);
             }
             if (b.transform.position.y > 6)
             {
-                GetComponent<spawnfish>().allairbubbles.Remove(closestbubble);
+                GetComponent<FishSpawn>().allAirBubbles.Remove(closestbubble);
                 Destroy(closestbubble);
             }
         }
